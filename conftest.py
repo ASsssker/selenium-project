@@ -1,5 +1,5 @@
 import pytest
-from selenium import webdriver
+from selenium.webdriver.remote.webdriver import WebDriver
 
 
 LANGUAGES: list[tuple[str, str, str]] = [
@@ -54,10 +54,11 @@ def pytest_addoption(parser):
                     help="Choose a language")
 
 
-@pytest.fixture
-def browser(request) -> webdriver.Chrome:
+@pytest.fixture(scope="function")
+def browser(request) -> WebDriver:
+    from selenium import webdriver
+
     browser = webdriver.Chrome()
-    browser.implicitly_wait(10)
     def browser_quit():
         browser.quit()
 
