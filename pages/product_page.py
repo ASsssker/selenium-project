@@ -4,26 +4,26 @@ from .locators import ProductPageLocators
 class ProductPage(BasePage):
 
     def add_to_basket(self):
-        s = self.browser.find_element(*ProductPageLocators.ADD_TO_CART_BUTTON).click()
+        s = self.browser.find_element(*ProductPageLocators.ADD_TO_basket_BUTTON).click()
 
     def should_be_notification_successful_addition(self):
-        assert self.is_element_present(*ProductPageLocators.CART_ADD_SUCCESS_ALERTS), "Product success add to card alert is not presented"
+        assert self.is_element_present(*ProductPageLocators.basket_ADD_SUCCESS_ALERTS), "Product success add to card alert is not presented"
 
     def should_not_be_notification_successful_addition(self):
-        assert self.is_not_element_present(*ProductPageLocators.CART_ADD_SUCCESS_ALERTS), "Product success add to card alert is presented"
+        assert self.is_not_element_present(*ProductPageLocators.basket_ADD_SUCCESS_ALERTS), "Product success add to card alert is presented"
 
     def should_be_disappeared_notification_successful_addition(self):
-        assert self.is_disappeared(*ProductPageLocators.CART_ADD_SUCCESS_ALERTS), "Product success add to card alert is not disappeared"
+        assert self.is_disappeared(*ProductPageLocators.basket_ADD_SUCCESS_ALERTS), "Product success add to card alert is not disappeared"
 
     @property
-    def cart_price(self) -> float:
-        assert self.is_element_present(*ProductPageLocators.CART_PRICE), "Cart price is not presented"
-        cart_price_text =  self.browser.find_element(*ProductPageLocators.CART_PRICE).text.strip()
-        return float(cart_price_text[:len(cart_price_text)-1].replace(",", "."))
+    def basket_price(self) -> float:
+        assert self.is_element_present(*ProductPageLocators.basket_PRICE), "Basket price is not presented"
+        basket_price_text =  self.browser.find_element(*ProductPageLocators.basket_PRICE).text.strip()
+        return float(basket_price_text[:len(basket_price_text)-1].replace(",", "."))
 
     @property
     def success_add_to_card_text(self) ->str:
-        return self.browser.find_element(*ProductPageLocators.CART_ADD_SUCCESS_ALERTS).text.strip()
+        return self.browser.find_element(*ProductPageLocators.basket_ADD_SUCCESS_ALERTS).text.strip()
 
     @property
     def product_name(self) -> str:
