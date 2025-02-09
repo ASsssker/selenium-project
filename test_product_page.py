@@ -6,6 +6,8 @@ from pages.product_page import ProductPage
 from pages.locators import ProductPageLocators
 
 
+link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
+
 @pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer2",
@@ -30,3 +32,27 @@ def test_guest_can_add_product_to_basket(browser: WebDriver, link: str):
     expected_product_price = product_page.price
     actual_cart_price = product_page.cart_price
     assert expected_product_price == actual_cart_price, f"The price of the basket is not equal to the expected: '{expected_product_price}', got '{actual_cart_price}'"
+
+
+@pytest.mark.xfail
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser: WebDriver):
+    product_page = ProductPage(browser, link)
+    product_page.open()
+    product_page.add_to_basket()
+    product_page.solve_quiz_and_get_code()
+    product_page.should_not_be_notification_successful_addition()
+
+
+def test_guest_cant_see_success_message(browser: WebDriver):
+    product_page = ProductPage(browser, link)
+    product_page.open()
+    product_page.should_not_be_notification_successful_addition()
+
+
+@pytest.mark.xfail
+def test_message_disappeared_after_adding_product_to_basket(browser: WebDriver):
+    product_page = ProductPage(browser, link)
+    product_page.open()
+    product_page.add_to_basket()
+    product_page.solve_quiz_and_get_code()
+    product_page.should_be_disappeared_notification_successful_addition()

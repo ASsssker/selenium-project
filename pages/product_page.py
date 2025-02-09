@@ -9,6 +9,12 @@ class ProductPage(BasePage):
     def should_be_notification_successful_addition(self):
         assert self.is_element_present(*ProductPageLocators.CART_ADD_SUCCESS_ALERTS), "Product success add to card alert is not presented"
 
+    def should_not_be_notification_successful_addition(self):
+        assert self.is_not_element_present(*ProductPageLocators.CART_ADD_SUCCESS_ALERTS), "Product success add to card alert is presented"
+
+    def should_be_disappeared_notification_successful_addition(self):
+        assert self.is_disappeared(*ProductPageLocators.CART_ADD_SUCCESS_ALERTS), "Product success add to card alert is not disappeared"
+
     @property
     def cart_price(self) -> float:
         assert self.is_element_present(*ProductPageLocators.CART_PRICE), "Cart price is not presented"
