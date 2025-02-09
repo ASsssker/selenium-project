@@ -31,4 +31,4 @@ class BasketPageLocators():
 
     PAGE_NAME = (By.CSS_SELECTOR, "div.page-header h1")
     PRODUCT_IN_basket = (By.CSS_SELECTOR, ".basket-items")
-    BASKET_EMPTY_MESSAGE = (By.CSS_SELECTOR, "#content_inner p")
+    BASKET_EMPTY_MESSAGE = (By.CSS_SELECTOR, "#content_inner > p")

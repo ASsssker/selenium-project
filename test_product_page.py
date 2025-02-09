@@ -19,7 +19,7 @@ class TestUserAddToBasketFromProductPage():
         email = f"{time.now()}dsadasd@mail.ru"
         passowrd = f"{time.now()}dsadawdawsadasdasd"
         login_page.register(email, passowrd)
-        assert login_page.is_logged(), "Not logged in"
+        login_page.is_logged()
 
     @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser: WebDriver):
@@ -29,13 +29,9 @@ class TestUserAddToBasketFromProductPage():
         product_page.solve_quiz_and_get_code()
         product_page.should_be_notification_successful_addition()
         
-        expected_product_add_alert_text =f"{product_page.product_name} был добавлен в вашу корзину."
-        actual_product_add_alert = product_page.success_add_to_card_text
-        assert expected_product_add_alert_text == actual_product_add_alert, f"Expected product add alert is not equal to got: expected '{expected_product_add_alert_text}', got '{actual_product_add_alert}'"
-        
-        expected_product_price = product_page.price
-        actual_basket_price = product_page.basket_price
-        assert expected_product_price == actual_basket_price, f"The price of the basket is not equal to the expected: '{expected_product_price}', got '{actual_basket_price}'"
+        product_page.should_be_product_name_contains_in_basket_alert()
+
+        product_page.should_be_product_price_equal_basket_price()
     
     def test_user_cant_see_success_message(self, browser: WebDriver):
         product_page = ProductPage(browser, link)
@@ -52,14 +48,9 @@ def test_guest_can_add_product_to_basket(browser: WebDriver, link: str):
     product_page.solve_quiz_and_get_code()
     product_page.should_be_notification_successful_addition()
     
-    expected_product_add_alert_text =f"{product_page.product_name} был добавлен в вашу корзину."
-    actual_product_add_alert = product_page.success_add_to_card_text
-    assert expected_product_add_alert_text == actual_product_add_alert, f"Expected product add alert is not equal to got: expected '{expected_product_add_alert_text}', got '{actual_product_add_alert}'"
-    
-    expected_product_price = product_page.price
-    actual_basket_price = product_page.basket_price
-    assert expected_product_price == actual_basket_price, f"The price of the basket is not equal to the expected: '{expected_product_price}', got '{actual_basket_price}'"
+    product_page.should_be_product_name_contains_in_basket_alert()
 
+    product_page.should_be_product_price_equal_basket_price()
 
 @pytest.mark.xfail
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser: WebDriver):

@@ -55,7 +55,7 @@ class BasePage():
         return True
     
     def is_logged(self) -> bool:
-        return self.is_element_present(*BasePageLocators.LOGIN_LINK)
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Not logged in"
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
