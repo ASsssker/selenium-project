@@ -21,6 +21,7 @@ class TestUserAddToBasketFromProductPage():
         login_page.register(email, passowrd)
         assert login_page.is_logged(), "Not logged in"
 
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser: WebDriver):
         product_page = ProductPage(browser, link)
         product_page.open()
@@ -43,6 +44,7 @@ class TestUserAddToBasketFromProductPage():
 
 
 @pytest.mark.parametrize('link', ["https://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0"])
+@pytest.mark.need_review
 def test_guest_can_add_product_to_basket(browser: WebDriver, link: str):
     product_page = ProductPage(browser, link)
     product_page.open()
@@ -88,6 +90,8 @@ def test_guest_should_see_login_link_on_product_page(browser: WebDriver):
     product_page.open()
     product_page.should_be_login_link()
 
+
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser: WebDriver):
     product_page = ProductPage(browser, link)
     product_page.open()
@@ -96,6 +100,7 @@ def test_guest_can_go_to_login_page_from_product_page(browser: WebDriver):
     login_page.should_be_login_page()
 
 
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser: WebDriver):
     product_page = ProductPage(browser, link)
     product_page.open()
